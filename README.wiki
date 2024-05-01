@@ -1,0 +1,35 @@
+wiki/1
+
+§ wiki-logs
+
+Application **wiki-logs** creates a **logs** page (a page that lists all the logs) using the **wiki/1** file-format.
+
+For example:
+
+	wiki-logs --output=logs.wiki
+
+❦
+
+Likely you will either run **wiki-logs** like this:
+
+	wiki-logs
+
+... if you want to create the //logs file// at the //default// path and file-name.
+
+Or like this:
+
+	wiki-logs -v --output=path/to/logs.wiki
+
+... if you want to create the //logs file// at the path and file-name you specify.
+
+Running that last comman would created the directory:
+
+	path/to
+
+And would create the file:
+
+	path/to/logs.wiki
+
+§§ Author
+
+Application **wiki-logs** was written by **Charles Iliya Krempeaux**
