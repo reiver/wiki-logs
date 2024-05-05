@@ -17,7 +17,7 @@ var input string
 var output string
 var verbose bool
 
-func init() {
+func parseFlags() {
 	flag.StringVar(&input, "input", "log", "input; the path to the log directory. ex: --input=logs or --output=../../over/here or --output=path/to/log")
 	flag.StringVar(&output, "output", "logs.wiki", "output; the path and file-name of the outputted logs file. ex: --output=my-logs.wiki or --output=my-file.wiki or --output=path/to/logs.wiki")
 	flag.BoolVar(&verbose, "v", false, "verbose")
@@ -26,6 +26,8 @@ func init() {
 }
 
 func main() {
+
+	parseFlags()
 
 	if verbose {
 		fmt.Printf("Input: %s\n", input)
@@ -225,7 +227,7 @@ panic(err)
 
 		switch {
 		case numA < numB:
-			return -1
+			return 1
 		case numA > numB:
 			return -1
 		default:
