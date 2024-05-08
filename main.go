@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"fmt"
 	"io"
@@ -13,13 +14,15 @@ import (
 	"github.com/reiver/go-path"
 )
 
+const dotWikiLogsFileName string = ".wiki-logs_output"
+
 var input string
 var output string
 var verbose bool
 
 func parseFlags() {
 	flag.StringVar(&input, "input", "log", "input; the path to the log directory. ex: --input=logs or --output=../../over/here or --output=path/to/log")
-	flag.StringVar(&output, "output", "logs.wiki", "output; the path and file-name of the outputted logs file. ex: --output=my-logs.wiki or --output=my-file.wiki or --output=path/to/logs.wiki")
+	flag.StringVar(&output, "output", "", "output; the path and file-name of the outputted logs file. ex: --output=logs.wiki or --output=my-file.wiki or --output=path/to/logs.wiki — not that you can also specify the output with a "+dotWikiLogsFileName+" file")
 	flag.BoolVar(&verbose, "v", false, "verbose")
 
 	flag.Parse()
@@ -28,6 +31,17 @@ func parseFlags() {
 func main() {
 
 	parseFlags()
+
+	{
+		if "" == output {
+			output = outputFromDotWikiLogs()
+		}
+		if "" == output {
+			fmt.Fprintf(os.Stderr, "ERROR: wiki-logs output file-name not specified\n")
+			os.Exit(1)
+			return
+		}
+	}
 
 	if verbose {
 		fmt.Printf("Input: %s\n", input)
@@ -236,4 +250,15 @@ panic(err)
 	}
 
 	return strings.Compare(a,b)
+}
+
+func outputFromDotWikiLogs() string {
+	p, err := os.ReadFile(dotWikiLogsFileName)
+	if nil != err {
+		return ""
+	}
+
+	p = bytes.TrimRight(p, "\n\r\u0085\u2028\u2029")
+
+	return string(p)
 }

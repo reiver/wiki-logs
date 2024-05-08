@@ -10,13 +10,13 @@ For example:
 
 ❦
 
-Likely you will either run **wiki-logs** like this:
+You can set the value of the 'output' by creating the dot-file ".wiki-logs_output", whose content is the name of the file where you want the output to go.
+
+And then you can run **wiki-logs** like this:
 
 	wiki-logs
 
-... if you want to create the //logs file// at the //default// path and file-name.
-
-Or like this:
+Else, you can run **wiki-logs** using the 'output' switch:
 
 	wiki-logs -v --output=path/to/logs.wiki
 
